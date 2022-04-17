@@ -3,8 +3,8 @@ import taichi as ti
 from taichi.math import *
 
 scene = Scene(voxel_edges=0.06, exposure=2)
-scene.set_floor(height=-1, color=(0.86,0.75,0.55))
-scene.set_directional_light((-2, 3, -1), 0.1, (1, 1, 1))
+scene.set_floor(height=-0.05, color=(1, 1, 1))
+scene.set_directional_light((1,1,1), 0.1, (1, 1, 1))
 
 @ti.func
 def make_pyradmid(center, n, h):
@@ -22,6 +22,9 @@ def initialize_voxels():
     make_pyradmid((-16, 40), 6, 6)
     make_pyradmid((3, 40), 8, 8)
     make_pyradmid((20, 50), 9, 9)
+    n = 60
+    for i, j in ti.ndrange((-n, n), (-n, n)):
+        scene.set_voxel(vec3(i, 0, j), 1, vec3(0.86,0.75,0.55))
 
 initialize_voxels()
 
